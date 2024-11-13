@@ -1,0 +1,134 @@
+# Apuntes de SQL
+
+## 1. Tipos de Datos en SQL
+
+En SQL, los tipos de datos se dividen en varias categorías. Aquí algunos de los más comunes:
+
+### Tipos Numéricos
+- `INT`: Número entero.
+- `FLOAT` y `REAL`: Números con decimales, de precisión variable.
+- `DECIMAL(p, s)`: Números decimales de precisión fija. `p` representa la precisión total, y `s` la cantidad de decimales.
+
+### Tipos de Texto
+- `CHAR(n)`: Cadena de texto de longitud fija.
+- `VARCHAR(n)`: Cadena de texto de longitud variable (hasta un máximo de `n` caracteres).
+- `TEXT`: Cadena de longitud variable, sin límite específico.
+
+### Tipos de Fecha y Hora
+- `DATE`: Almacena fechas (año, mes, día).
+- `TIME`: Almacena horas (horas, minutos, segundos).
+- `DATETIME`: Almacena tanto fecha como hora.
+- `TIMESTAMP`: Similar a `DATETIME`, pero ajustado a zonas horarias.
+
+### Tipo Booleano
+- `BOOLEAN`: Tipo de dato lógico (verdadero/falso).
+
+## 2. Creación de Tablas
+
+Para crear una tabla en SQL, usamos la sentencia `CREATE TABLE`. A continuación, un ejemplo básico:
+
+```sql
+CREATE TABLE nombre_tabla (
+    columna1 INT,
+    columna2 VARCHAR(50),
+    columna3 DATE
+); 
+```
+## 3. Constraints (Restricciones)
+Las restricciones o constraints ayudan a definir reglas en las columnas de una tabla. A continuación se muestran algunas de las más comunes:
+
+3.1 PRIMARY KEY
+Define una columna o conjunto de columnas como clave primaria, garantizando que cada valor es único y no nulo.
+
+```sql
+CREATE TABLE ejemplo (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+```
+3.2 FOREIGN KEY
+Enlaza una columna con la clave primaria de otra tabla, creando una relación entre ellas.
+
+```sql
+CREATE TABLE orden (
+    id INT PRIMARY KEY,
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+);
+```
+3.3 NOT NULL
+Impide que una columna acepte valores nulos.
+
+```sql
+CREATE TABLE empleado (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+);
+```
+3.4 UNIQUE
+Garantiza que todos los valores en una columna sean únicos.
+
+```sql
+CREATE TABLE producto (
+    codigo INT UNIQUE,
+    nombre VARCHAR(50)
+);
+```
+3.5 CHECK
+Define una condición que los valores deben cumplir.
+
+```sql
+CREATE TABLE estudiante (
+    id INT PRIMARY KEY,
+    edad INT CHECK (edad >= 18)
+);
+```
+## 4. Manipulación de Tablas
+4.1 Insertar Datos
+Para añadir datos a una tabla, usamos INSERT INTO:
+
+```sql
+INSERT INTO nombre_tabla (columna1, columna2)
+VALUES (valor1, valor2);
+```
+4.2 Actualizar Datos
+Para modificar datos ya existentes:
+
+```sql
+UPDATE nombre_tabla
+SET columna1 = nuevo_valor
+WHERE condicion;
+```
+4.3 Eliminar Datos
+Para eliminar registros:
+
+```sql
+DELETE FROM nombre_tabla
+WHERE condicion;
+Nota: Usar DELETE sin WHERE eliminará todos los registros de la tabla.
+```
+
+5. Borrar Tablas
+Para eliminar una tabla completa, usamos DROP TABLE:
+
+```sql
+DROP TABLE nombre_tabla;
+```
+6. Modificar Tablas
+Para hacer cambios en la estructura de una tabla existente, como añadir o eliminar columnas, utilizamos ALTER TABLE.
+
+6.1 Añadir una columna
+```sql
+ALTER TABLE nombre_tabla
+ADD nueva_columna INT;
+```
+6.2 Eliminar una columna
+```sql
+ALTER TABLE nombre_tabla
+DROP COLUMN columna_existente;
+```
+6.3 Modificar el tipo de dato de una columna
+```sql
+ALTER TABLE nombre_tabla
+MODIFY columna_existente VARCHAR(100);
+```
