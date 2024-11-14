@@ -28,11 +28,10 @@ En SQL, los tipos de datos se dividen en varias categorías. Aquí algunos de lo
 Para crear una tabla en SQL, usamos la sentencia `CREATE TABLE`. A continuación, un ejemplo básico:
 
 ```sql
-CREATE TABLE nombre_tabla (
-    columna1 INT,
-    columna2 VARCHAR(50),
-    columna3 DATE
-); 
+CREATE TABLE Region (
+	CodRegion NUMERIC(3),
+	Nombre VARCHAR(40),
+);
 ```
 ## 3. Constraints (Restricciones)
 Las restricciones o constraints ayudan a definir reglas en las columnas de una tabla. A continuación se muestran algunas de las más comunes:
@@ -41,19 +40,22 @@ Las restricciones o constraints ayudan a definir reglas en las columnas de una t
 Define una columna o conjunto de columnas como clave primaria, garantizando que cada valor es único y no nulo.
 
 ```sql
-CREATE TABLE ejemplo (
-    id INT PRIMARY KEY,
-    nombre VARCHAR(50)
+CREATE TABLE Region (
+	CodRegion NUMERIC(3),
+	Nombre VARCHAR(40),
+	CONSTRAINT PK_Region PRIMARY KEY (CodRegion)
 );
 ```
 3.2 FOREIGN KEY
 Enlaza una columna con la clave primaria de otra tabla, creando una relación entre ellas.
 
 ```sql
-CREATE TABLE orden (
-    id INT PRIMARY KEY,
-    cliente_id INT,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+CREATE TABLE Provincia (
+	CodProvincia NUMERIC(3),
+	Nombre VARCHAR(40),
+    CodRegion NUMERIC(3),
+	CONSTRAINT PK_CodProvincia PRIMARY KEY (CodProvincia),
+    CONSTRAINT FK_CodRegion FOREIGN KEY (CodRegion) REFERENCES Region(CodRegion)
 );
 ```
 3.3 NOT NULL
@@ -69,18 +71,27 @@ CREATE TABLE empleado (
 Garantiza que todos los valores en una columna sean únicos.
 
 ```sql
-CREATE TABLE producto (
-    codigo INT UNIQUE,
-    nombre VARCHAR(50)
+CREATE TABLE Empleado (
+	ID NUMERIC(3),
+	DNI VARCHAR(9),
+    Nombre VARCHAR(50),
+    FechaNac DATE,
+    Telefon NUMERIC(9),
+    Salario NUMERIC(10),
+    CodLocalidad NUMERIC(3),
+    CONSTRAINT UQ_DNI UNIQUE (DNI)
 );
 ```
 3.5 CHECK
 Define una condición que los valores deben cumplir.
 
 ```sql
-CREATE TABLE estudiante (
-    id INT PRIMARY KEY,
-    edad INT CHECK (edad >= 18)
+CREATE TABLE FABRICANT (
+	COD_FABRICANT NUMERIC(3),
+	NOM VARCHAR(15),
+    PAIS VARCHAR(15),
+    CONSTRAINT CK_NOM CHECK (NOM = UPPER(NOM)),
+    CONSTRAINT CK_PAIS CHECK (PAIS = UPPER(PAIS))
 );
 ```
 ## 4. Manipulación de Tablas
