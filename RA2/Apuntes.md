@@ -99,8 +99,7 @@ CREATE TABLE FABRICANT (
 Para añadir datos a una tabla, usamos INSERT INTO:
 
 ```sql
-INSERT INTO nombre_tabla (columna1, columna2)
-VALUES (valor1, valor2);
+INSERT INTO nombre_tabla (columna1, columna2) VALUES (valor1, valor2);
 ```
 4.2 Actualizar Datos
 Para modificar datos ya existentes:
@@ -119,13 +118,13 @@ WHERE condicion;
 Nota: Usar DELETE sin WHERE eliminará todos los registros de la tabla.
 ```
 
-5. Borrar Tablas
+## 5. Borrar Tablas
 Para eliminar una tabla completa, usamos DROP TABLE:
 
 ```sql
 DROP TABLE nombre_tabla;
 ```
-6. Modificar Tablas
+## 6. Modificar Tablas
 Para hacer cambios en la estructura de una tabla existente, como añadir o eliminar columnas, utilizamos ALTER TABLE.
 
 6.1 Añadir una columna
@@ -143,3 +142,11 @@ DROP COLUMN columna_existente;
 ALTER TABLE nombre_tabla
 MODIFY columna_existente VARCHAR(100);
 ```
+6.4 Afegir comentaris a les taules
+```sql
+COMMENT ON { TABLE NomTaula | COLUMN taula.nomColumna } IS ‘Comentari’
+```
+
+## 7. Transaccions
+7.1 Commit
+- La instrucció  COMMIT fa que els canvis realitzats per la transacció siguin definitius, irrevocables.  
